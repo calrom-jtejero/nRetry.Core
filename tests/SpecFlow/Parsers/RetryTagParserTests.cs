@@ -1,20 +1,26 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="RetryTagParserTests.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Tests.SpecFlow.Parsers
 {
     using System;
+    using NRetry.SpecFlowPlugin.Parsers;
     using NUnit.Framework;
-    using nRetry.SpecFlowPlugin.Parsers;
 
     public class RetryTagParserTests
     {
         [Test]
         public void Parse_Null_ThrowsArgumentNullException() =>
-            Assert.Throws<ArgumentNullException>(() => this.GetParser().Parse(null));
+            Assert.Throws<ArgumentNullException>(() => GetParser().Parse(null));
 
         [Test]
         public void Parse_NoParams_CorrectResult()
         {
             // Arrange
-            RetryTagParser parser = this.GetParser();
+            RetryTagParser parser = GetParser();
             RetryTag expected = new RetryTag(3, null);
 
             // Act
@@ -31,7 +37,7 @@ namespace Tests.SpecFlow.Parsers
         public void Parse_MaxRetries_ReturnsCorrectResult(string tag, int maxRetries)
         {
             // Arrange
-            RetryTagParser parser = this.GetParser();
+            RetryTagParser parser = GetParser();
             RetryTag expected = new RetryTag(maxRetries, null);
 
             // Act
@@ -52,7 +58,7 @@ namespace Tests.SpecFlow.Parsers
             int? delayBetweenRetriesMs)
         {
             // Arrange
-            RetryTagParser parser = this.GetParser();
+            RetryTagParser parser = GetParser();
             RetryTag expected = new RetryTag(maxRetries, delayBetweenRetriesMs);
 
             // Act
@@ -62,6 +68,6 @@ namespace Tests.SpecFlow.Parsers
             Assert.AreEqual(expected, actual);
         }
 
-        private RetryTagParser GetParser() => new RetryTagParser();
+        private static RetryTagParser GetParser() => new RetryTagParser();
     }
 }

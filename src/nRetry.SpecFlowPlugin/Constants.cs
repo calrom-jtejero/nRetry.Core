@@ -1,7 +1,13 @@
-namespace nRetry.SpecFlowPlugin
+﻿// -----------------------------------------------------------------------
+// <copyright file="Constants.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace NRetry.SpecFlowPlugin
 {
     internal static class Constants
     {
-        public const string RETRY_TAG = "retry";
+        public const string RETRYTAG = "retry";
     }
 }

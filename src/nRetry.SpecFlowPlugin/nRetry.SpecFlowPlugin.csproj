@@ -21,4 +21,8 @@
     <PackageReference Include="SpecFlow.CustomPlugin" Version="3.4.8" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
 </Project>

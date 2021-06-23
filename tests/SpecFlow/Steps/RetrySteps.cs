@@ -1,23 +1,29 @@
-using NUnit.Framework;
-using TechTalk.SpecFlow;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RetrySteps.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Tests.SpecFlow.Steps
 {
+    using NUnit.Framework;
+    using TechTalk.SpecFlow;
+
     [Binding]
-    public class RetrySteps
+    public static class RetrySteps
     {
-        private static int _retryCount = 0;
+        private static int retryCount = 0;
 
         [When(@"I increment the retry count")]
         public static void WhenIIncrementTheRetryCount()
         {
-            _retryCount++;
+            retryCount++;
         }
 
         [Then(@"the result should be (.*)")]
         public static void ThenTheResultShouldBe(int expected)
         {
-            Assert.AreEqual(expected, _retryCount);
+            Assert.AreEqual(expected, retryCount);
         }
     }
 }
