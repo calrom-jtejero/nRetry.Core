@@ -1,31 +1,36 @@
-namespace nRetry.SpecFlowPlugin
+﻿// -----------------------------------------------------------------------
+// <copyright file="TestGeneratorProviderWithRetry.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace NRetry.SpecFlowPlugin
 {
     using System;
     using System.CodeDom;
     using System.Collections.Generic;
     using System.Linq;
+    using NRetry.SpecFlowPlugin.Parsers;
     using TechTalk.SpecFlow.Generator;
     using TechTalk.SpecFlow.Generator.CodeDom;
-    using TechTalk.SpecFlow.Generator.Interfaces;
     using TechTalk.SpecFlow.Generator.UnitTestProvider;
-    using nRetry.SpecFlowPlugin.Parsers;
 
     public class TestGeneratorProviderWithRetry : NUnit3TestGeneratorProvider
     {
-        private const string IGNORE_TAG = "ignore";
+        private const string IGNORETAG = "ignore";
 
         private readonly IRetryTagParser retryTagParser;
-        private readonly ProjectSettings projectSettings;
 
-        public TestGeneratorProviderWithRetry(CodeDomHelper codeDomHelper, ProjectSettings projectSettings, IRetryTagParser retryTagParser)
+        public TestGeneratorProviderWithRetry(CodeDomHelper codeDomHelper, IRetryTagParser retryTagParser)
             : base(codeDomHelper)
         {
             this.retryTagParser = retryTagParser;
-            this.projectSettings = projectSettings;
         }
 
-        public override void SetTestMethodCategories(TestClassGenerationContext generationContext,
-            CodeMemberMethod testMethod, IEnumerable<string> scenarioCategories)
+        public override void SetTestMethodCategories(
+            TestClassGenerationContext generationContext,
+            CodeMemberMethod testMethod,
+            IEnumerable<string> scenarioCategories)
         {
             // Optimisation: Prevent multiple enumerations
             scenarioCategories = scenarioCategories as string[] ?? scenarioCategories.ToArray();
@@ -59,7 +64,8 @@ namespace nRetry.SpecFlowPlugin
             testMethod.CustomAttributes.Remove(originalAttribute);
 
             // Add the Retry attribute
-            CodeAttributeDeclaration retryAttribute = this.CodeDomHelper.AddAttribute(testMethod,
+            CodeAttributeDeclaration retryAttribute = this.CodeDomHelper.AddAttribute(
+                testMethod,
                 "NUnit.Framework.Retry");
 
             if (retryTag.MaxRetries != null)
@@ -77,7 +83,7 @@ namespace nRetry.SpecFlowPlugin
 
         private static string StripLeadingAtSign(string s) => s.StartsWith("@") ? s.Substring(1) : s;
 
-        private static bool IsIgnoreTag(string tag) => tag.Equals(IGNORE_TAG, StringComparison.OrdinalIgnoreCase);
+        private static bool IsIgnoreTag(string tag) => tag.Equals(IGNORETAG, StringComparison.OrdinalIgnoreCase);
 
         private static bool IsIgnored(TestClassGenerationContext generationContext, IEnumerable<string> tags) =>
             generationContext.Feature.Tags.Select(t => StripLeadingAtSign(t.Name)).Any(IsIgnoreTag) ||
@@ -85,8 +91,8 @@ namespace nRetry.SpecFlowPlugin
 
         private static string GetRetryTag(IEnumerable<string> tags) =>
             tags.FirstOrDefault(t =>
-                t.StartsWith(Constants.RETRY_TAG, StringComparison.OrdinalIgnoreCase) &&
-                // Is just "retry", or is "retry("... for params
-                (t.Length == Constants.RETRY_TAG.Length || t[Constants.RETRY_TAG.Length] == '('));
+                t.StartsWith(Constants.RETRYTAG, StringComparison.OrdinalIgnoreCase) &&
+                //// Is just "retry", or is "retry("... for params
+                (t.Length == Constants.RETRYTAG.Length || t[Constants.RETRYTAG.Length] == '('));
     }
 }

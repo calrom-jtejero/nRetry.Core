@@ -1,17 +1,24 @@
-using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RetryTag.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
 
-namespace nRetry.SpecFlowPlugin.Parsers
+namespace NRetry.SpecFlowPlugin.Parsers
 {
+    using System;
+
     public sealed class RetryTag : IEquatable<RetryTag>
     {
-        public readonly int? MaxRetries;
-        public readonly int? DelayBetweenRetriesMs;
-
         public RetryTag(int? maxRetries, int? delayBetweenRetriesMs)
         {
             this.MaxRetries = maxRetries;
             this.DelayBetweenRetriesMs = delayBetweenRetriesMs;
         }
+
+        public int? MaxRetries { get; }
+
+        public int? DelayBetweenRetriesMs { get; }
 
         public bool Equals(RetryTag other)
         {

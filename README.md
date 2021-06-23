@@ -1,7 +1,7 @@
 # xRetry for NUnit
 Retry flickering test cases for NUnit and SpecFlow.
 
-[![pipeline status](https://gitlab.com/JoshKeegan/xRetry/badges/master/pipeline.svg)](https://gitlab.com/JoshKeegan/xRetry/pipelines)
+[![CI/CD](https://github.com/calrom-jtejero/nRetry.Core/actions/workflows/cicd.yaml/badge.svg)](https://github.com/calrom-jtejero/nRetry.Core/actions/workflows/cicd.yaml)
 
 ## When to use this
 This is intended for use on flickering tests, where the reason for failure is an external 
@@ -17,9 +17,9 @@ If you have a test that covers some flaky code, where sporadic failures are caus
 this library should **not** be used to cover it up!
 
 ## Usage: SpecFlow 3
-Add the `xRetry.NUnit.SpecFlowPlugin` nuget package to your project.
+Add the `nRetry.Core.SpecFlowPlugin` nuget package to your project.
 
-nuget.org link: https://www.nuget.org/packages/xRetry.NUnit.SpecFlowPlugin/
+nuget.org link: https://www.nuget.org/packages/nRetry.SpecFlowPlugin/
 
 Above any scenario that should be retried, add a `@retry` tag, e.g:
 ```gherkin

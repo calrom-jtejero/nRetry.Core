@@ -1,4 +1,10 @@
-namespace nRetry.SpecFlowPlugin.Parsers
+﻿// -----------------------------------------------------------------------
+// <copyright file="RetryTagParser.cs" company="Calrom Ltd.">
+// Under MIT license
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace NRetry.SpecFlowPlugin.Parsers
 {
     using System;
     using System.Text.RegularExpressions;
@@ -6,7 +12,8 @@ namespace nRetry.SpecFlowPlugin.Parsers
     public class RetryTagParser : IRetryTagParser
     {
         // unescaped: ^retry(\(([0-9]+)(,([0-9]+))?\))?$
-        private readonly Regex regex = new Regex($"^{Constants.RETRY_TAG}(\\(([0-9]+)(,([0-9]+))?\\))?$",
+        private readonly Regex regex = new Regex(
+            $"^{Constants.RETRYTAG}(\\(([0-9]+)(,([0-9]+))?\\))?$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public RetryTag Parse(string tag)
@@ -16,7 +23,7 @@ namespace nRetry.SpecFlowPlugin.Parsers
                 throw new ArgumentNullException(nameof(tag));
             }
 
-            int? maxRetries = null;
+            int? maxRetries;
             int? delayBetweenRetriesMs = null;
 
             Match match = this.regex.Match(tag);
