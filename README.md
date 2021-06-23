@@ -1,7 +1,6 @@
-# xRetry
-Retry flickering test cases for xUnit and SpecFlow in dotnet.
+# xRetry for NUnit
+Retry flickering test cases for NUnit and SpecFlow.
 
-[![pipeline status](https://github.com/JoshKeegan/xRetry/actions/workflows/cicd.yaml/badge.svg)](https://github.com/JoshKeegan/xRetry/actions)
 [![pipeline status](https://gitlab.com/JoshKeegan/xRetry/badges/master/pipeline.svg)](https://gitlab.com/JoshKeegan/xRetry/pipelines)
 
 ## When to use this
@@ -18,9 +17,11 @@ If you have a test that covers some flaky code, where sporadic failures are caus
 this library should **not** be used to cover it up!
 
 ## Usage: SpecFlow 3
-Add the `xRetry.SpecFlow` nuget package to your project.  
+Add the `xRetry.NUnit.SpecFlowPlugin` nuget package to your project.
 
-Above any scenario or scenario outline that should be retried, add a `@retry` tag, e.g:
+nuget.org link: https://www.nuget.org/packages/xRetry.NUnit.SpecFlowPlugin/
+
+Above any scenario that should be retried, add a `@retry` tag, e.g:
 ```gherkin
 @retry
 Scenario: Retry three times by default
@@ -30,80 +31,18 @@ Scenario: Retry three times by default
 This will retry the test up to 3 times by default. You can optionally specify a number of times 
 to retry the test in brackets, e.g. `@retry(5)`.  
 
-You can also optionally specify a delay between each retry (in milliseconds) as a second 
-parameter, e.g. `@retry(5,100)` will run your test 5 times until it passes, waiting 100ms
-between each attempt.  
-Note that you must not include a space between the parameters, as Cucumber/SpecFlow uses
-a space to separate tags, i.e. `@retry(5, 100)` would not work due to the space after the comma.
-
-## Usage: xUnit
-Add the `xRetry` nuget package to your project.
-
-### Facts
-Above any `Fact` test case that should be retried, replace the `Fact` attribute, with 
-`RetryFact`, e.g:
-```cs
-private static int defaultNumCalls = 0;
-
-[RetryFact]
-public void Default_Reaches3()
-{
-    defaultNumCalls++;
-
-    Assert.Equal(3, defaultNumCalls);
-}
-
-```
-This will retry the test up to 3 times by default. You can optionally specify a number of times
-to retry the test as an argument, e.g. `[RetryFact(5)]`.  
-
-You can also optionally specify a delay between each retry (in milliseconds) as a second 
-parameter, e.g. `[RetryFact(5, 100)]` will run your test 5 times until it passes, waiting 100ms
-between each attempt.
-
-
-### Theories
-If you have used the library for retrying `Fact` tests, using it to retry a `Theory` should be very intuitive.  
-Above any `Theory` test case that should be retried, replace the `Theory` attribute with `RetryTheory`, e.g:
-```cs
-// testId => numCalls
-private static readonly Dictionary<int, int> defaultNumCalls = new Dictionary<int, int>()
-{
-    { 0, 0 },
-    { 1, 0 }
-};
-
-[RetryTheory]
-[InlineData(0)]
-[InlineData(1)]
-public void Default_Reaches3(int id)
-{
-    defaultNumCalls[id]++;
-
-    Assert.Equal(3, defaultNumCalls[id]);
-}
-```
-The same optional arguments (max retries and delay between each retry) are supported as for facts, and can be used in the same way.
-
-## Viewing retry logs
-By default, you won't see whether your tests are being retried as we make this information available 
-via the xunit diagnostic logs but test runners will hide these detailed logs by default.  
-To enable them you must configure your xUnit test project to have `diagnosticMessages` set to `true` in the `xunit.runner.json`. 
-See the [xUnit docs](https://xunit.net/docs/configuration-files) for a full setup guide of their config file, or see
-this projects own unit tests which has been set up with this enabled.
-
 ## Contributing
 Feel free to open a pull request! If you want to start any sizeable chunk of work, consider 
 opening an issue first to discuss, and make sure nobody else is working on the same problem.  
 
 ### Running locally
-To run locally, always build `xRetry.SpecFlowPlugin` before the tests, to ensure MSBuild
+To run locally, always build `xRetry.NUnit.SpecFlowPlugin` before the tests, to ensure MSBuild
 uses the latest version of your changes.  
 
 If you install `make` and go to the `build` directory, you can run the following from the 
 terminal to build, run tests and create the nuget packages:
 ```bash
-make ci
+make build unit-tests-run nuget-create
 ```
 If that works, all is well!
 

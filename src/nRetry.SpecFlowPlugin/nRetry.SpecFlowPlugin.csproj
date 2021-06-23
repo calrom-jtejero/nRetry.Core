@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
+	<AssemblyName>nRetry.SpecFlowPlugin</AssemblyName>
+
+    <IsPackable>true</IsPackable>
+    <NuspecProperties>version=$(Version)</NuspecProperties>
+    <RootNamespace>nRetry.SpecFlowPlugin</RootNamespace>
+    <PackageProjectUrl>https://github.com/calrom-jtejero/xRetry.Nunit.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/calrom-jtejero/xRetry.Nunit.Core</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Description>Allows for a @retry(n) tag to be placed above scenarios in SpecFlow.NUnit. This can be used to re-run a failed test up to n times, allowing for transient failures (e.g. network related) to be tolerated. Based on Josh Keegan's xRetry.SpecFlow package</Description>
+    <Copyright>Calrom Ltd.</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.4.8" />
+  </ItemGroup>
+
+</Project>
