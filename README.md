@@ -19,7 +19,7 @@ this library should **not** be used to cover it up!
 ## Usage: SpecFlow 3
 Add the `nRetry.Core.SpecFlowPlugin` nuget package to your project.
 
-nuget.org link: https://www.nuget.org/packages/xRetry.NUnit.SpecFlowPlugin/
+nuget.org link: https://www.nuget.org/packages/nRetry.SpecFlowPlugin/
 
 Above any scenario that should be retried, add a `@retry` tag, e.g:
 ```gherkin
