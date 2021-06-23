@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SpecFlowGeneratorPlugins Condition="'$(MSBuildRuntimeType)' == 'Core'" Include="../src/nRetry.SpecFlowPlugin/bin/Release/netstandard2.0/nRetry.SpecFlowPlugin.dll" />
+    <SpecFlowGeneratorPlugins Condition="'$(MSBuildRuntimeType)' != 'Core'" Include="../src/nRetry.SpecFlowPlugin/bin/Release/net472/nRetry.SpecFlowPlugin.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.4.8" />
+    <PackageReference Include="SpecFlow" Version="3.4.8" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.4.8" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.4.8" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.11.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- required for .net framework xunit tests to run on mono via dotnet test: https://github.com/microsoft/vstest/issues/2469 -->
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\nRetry.SpecFlowPlugin\nRetry.SpecFlowPlugin.csproj" />
+  </ItemGroup>
+
+</Project>
